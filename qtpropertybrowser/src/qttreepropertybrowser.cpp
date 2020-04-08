@@ -146,7 +146,7 @@ QtPropertyEditorView::QtPropertyEditorView(QWidget *parent) :
 
 void QtPropertyEditorView::drawRow(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QStyleOptionViewItemV3 opt = option;
+    QStyleOptionViewItem opt = option;
     bool hasValue = true;
     if (m_editorPrivate) {
         QtProperty *property = m_editorPrivate->indexToProperty(index);
@@ -255,7 +255,7 @@ protected:
     void drawDisplay(QPainter *painter, const QStyleOptionViewItem &option,
             const QRect &rect, const QString &text) const;
 
-private slots:
+private Q_SLOTS:
     void slotEditorDestroyed(QObject *object);
 
 private:
@@ -348,7 +348,7 @@ void QtPropertyEditorDelegate::paint(QPainter *painter, const QStyleOptionViewIt
         if (property)
             hasValue = property->hasValue();
     }
-    QStyleOptionViewItemV3 opt = option;
+    QStyleOptionViewItem opt = option;
     if ((m_editorPrivate && index.column() == 0) || !hasValue) {
         QtProperty *property = m_editorPrivate->indexToProperty(index);
         if (property && property->isModified()) {
@@ -674,7 +674,7 @@ void QtTreePropertyBrowserPrivate::slotCollapsed(const QModelIndex &index)
     QTreeWidgetItem *item = indexToItem(index);
     QtBrowserItem *idx = m_itemToIndex.value(item);
     if (item)
-        emit q_ptr->collapsed(idx);
+        Q_EMIT q_ptr->collapsed(idx);
 }
 
 void QtTreePropertyBrowserPrivate::slotExpanded(const QModelIndex &index)
@@ -682,7 +682,7 @@ void QtTreePropertyBrowserPrivate::slotExpanded(const QModelIndex &index)
     QTreeWidgetItem *item = indexToItem(index);
     QtBrowserItem *idx = m_itemToIndex.value(item);
     if (item)
-        emit q_ptr->expanded(idx);
+        Q_EMIT q_ptr->expanded(idx);
 }
 
 void QtTreePropertyBrowserPrivate::slotCurrentBrowserItemChanged(QtBrowserItem *item)

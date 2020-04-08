@@ -240,8 +240,8 @@ static void setSimpleValue(QMap<const QtProperty *, Value> &propertyMap,
 
     it.value() = val;
 
-    emit (manager->*propertyChangedSignal)(property);
-    emit (manager->*valueChangedSignal)(property, val);
+    Q_EMIT (manager->*propertyChangedSignal)(property);
+    Q_EMIT (manager->*valueChangedSignal)(property, val);
 }
 
 template <class ValueChangeParameter, class PropertyManagerPrivate, class PropertyManager, class Value>
@@ -273,8 +273,8 @@ static void setValueInRange(PropertyManager *manager, PropertyManagerPrivate *ma
     if (setSubPropertyValue)
         (managerPrivate->*setSubPropertyValue)(property, data.val);
 
-    emit (manager->*propertyChangedSignal)(property);
-    emit (manager->*valueChangedSignal)(property, data.val);
+    Q_EMIT (manager->*propertyChangedSignal)(property);
+    Q_EMIT (manager->*valueChangedSignal)(property, data.val);
 }
 
 template <class ValueChangeParameter, class PropertyManagerPrivate, class PropertyManager, class Value>
@@ -307,7 +307,7 @@ static void setBorderValues(PropertyManager *manager, PropertyManagerPrivate *ma
     data.setMinimumValue(fromVal);
     data.setMaximumValue(toVal);
 
-    emit (manager->*rangeChangedSignal)(property, data.minVal, data.maxVal);
+    Q_EMIT (manager->*rangeChangedSignal)(property, data.minVal, data.maxVal);
 
     if (setSubPropertyRange)
         (managerPrivate->*setSubPropertyRange)(property, data.minVal, data.maxVal, data.val);
@@ -315,8 +315,8 @@ static void setBorderValues(PropertyManager *manager, PropertyManagerPrivate *ma
     if (data.val == oldVal)
         return;
 
-    emit (manager->*propertyChangedSignal)(property);
-    emit (manager->*valueChangedSignal)(property, data.val);
+    Q_EMIT (manager->*propertyChangedSignal)(property);
+    Q_EMIT (manager->*valueChangedSignal)(property, data.val);
 }
 
 template <class ValueChangeParameter, class PropertyManagerPrivate, class PropertyManager, class Value, class PrivateData>
@@ -345,7 +345,7 @@ static void setBorderValue(PropertyManager *manager, PropertyManagerPrivate *man
 
     (data.*setRangeVal)(borderVal);
 
-    emit (manager->*rangeChangedSignal)(property, data.minVal, data.maxVal);
+    Q_EMIT (manager->*rangeChangedSignal)(property, data.minVal, data.maxVal);
 
     if (setSubPropertyRange)
         (managerPrivate->*setSubPropertyRange)(property, data.minVal, data.maxVal, data.val);
@@ -353,8 +353,8 @@ static void setBorderValue(PropertyManager *manager, PropertyManagerPrivate *man
     if (data.val == oldVal)
         return;
 
-    emit (manager->*propertyChangedSignal)(property);
-    emit (manager->*valueChangedSignal)(property, data.val);
+    Q_EMIT (manager->*propertyChangedSignal)(property);
+    Q_EMIT (manager->*valueChangedSignal)(property, data.val);
 }
 
 template <class ValueChangeParameter, class PropertyManagerPrivate, class PropertyManager, class Value, class PrivateData>
@@ -885,7 +885,7 @@ void QtIntPropertyManager::setSingleStep(QtProperty *property, int step)
 
     it.value() = data;
 
-    emit singleStepChanged(property, data.singleStep);
+    Q_EMIT singleStepChanged(property, data.singleStep);
 }
 
 /*!
@@ -907,8 +907,8 @@ void QtIntPropertyManager::setReadOnly(QtProperty *property, bool readOnly)
     data.readOnly = readOnly;
     it.value() = data;
 
-    emit propertyChanged(property);
-    emit readOnlyChanged(property, data.readOnly);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT readOnlyChanged(property, data.readOnly);
 }
 
 /*!
@@ -1159,7 +1159,7 @@ void QtDoublePropertyManager::setSingleStep(QtProperty *property, double step)
 
     it.value() = data;
 
-    emit singleStepChanged(property, data.singleStep);
+    Q_EMIT singleStepChanged(property, data.singleStep);
 }
 
 /*!
@@ -1181,8 +1181,8 @@ void QtDoublePropertyManager::setReadOnly(QtProperty *property, bool readOnly)
     data.readOnly = readOnly;
     it.value() = data;
 
-    emit propertyChanged(property);
-    emit readOnlyChanged(property, data.readOnly);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT readOnlyChanged(property, data.readOnly);
 }
 
 /*!
@@ -1214,7 +1214,7 @@ void QtDoublePropertyManager::setDecimals(QtProperty *property, int prec)
 
     it.value() = data;
 
-    emit decimalsChanged(property, data.decimals);
+    Q_EMIT decimalsChanged(property, data.decimals);
 }
 
 /*!
@@ -1477,8 +1477,8 @@ void QtStringPropertyManager::setValue(QtProperty *property, const QString &val)
 
     it.value() = data;
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 /*!
@@ -1501,7 +1501,7 @@ void QtStringPropertyManager::setRegExp(QtProperty *property, const QRegExp &reg
 
     it.value() = data;
 
-    emit regExpChanged(property, data.regExp);
+    Q_EMIT regExpChanged(property, data.regExp);
 }
 
 
@@ -1519,8 +1519,8 @@ void QtStringPropertyManager::setEchoMode(QtProperty *property, EchoMode echoMod
     data.echoMode = echoMode;
     it.value() = data;
 
-    emit propertyChanged(property);
-    emit echoModeChanged(property, data.echoMode);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT echoModeChanged(property, data.echoMode);
 }
 
 /*!
@@ -1542,8 +1542,8 @@ void QtStringPropertyManager::setReadOnly(QtProperty *property, bool readOnly)
     data.readOnly = readOnly;
     it.value() = data;
 
-    emit propertyChanged(property);
-    emit readOnlyChanged(property, data.readOnly);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT readOnlyChanged(property, data.readOnly);
 }
 
 /*!
@@ -1731,8 +1731,8 @@ void QtBoolPropertyManager::setValue(QtProperty *property, bool val)
     data.val = val;
     it.value() = data;
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 void QtBoolPropertyManager::setTextVisible(QtProperty *property, bool textVisible)
@@ -1749,8 +1749,8 @@ void QtBoolPropertyManager::setTextVisible(QtProperty *property, bool textVisibl
     data.textVisible = textVisible;
     it.value() = data;
 
-    emit propertyChanged(property);
-    emit textVisibleChanged(property, data.textVisible);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT textVisibleChanged(property, data.textVisible);
 }
 
 /*!
@@ -2644,8 +2644,8 @@ void QtLocalePropertyManager::setValue(QtProperty *property, const QLocale &val)
     }
     d_ptr->m_enumPropertyManager->setValue(d_ptr->m_propertyToCountry.value(property), countryIdx);
 
-    emit propertyChanged(property);
-    emit valueChanged(property, val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, val);
 }
 
 /*!
@@ -2863,8 +2863,8 @@ void QtPointPropertyManager::setValue(QtProperty *property, const QPoint &val)
     d_ptr->m_intPropertyManager->setValue(d_ptr->m_propertyToX[property], val.x());
     d_ptr->m_intPropertyManager->setValue(d_ptr->m_propertyToY[property], val.y());
 
-    emit propertyChanged(property);
-    emit valueChanged(property, val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, val);
 }
 
 /*!
@@ -3103,8 +3103,8 @@ void QtPointFPropertyManager::setValue(QtProperty *property, const QPointF &val)
     d_ptr->m_doublePropertyManager->setValue(d_ptr->m_propertyToX[property], val.x());
     d_ptr->m_doublePropertyManager->setValue(d_ptr->m_propertyToY[property], val.y());
 
-    emit propertyChanged(property);
-    emit valueChanged(property, val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, val);
 }
 
 /*!
@@ -3138,7 +3138,7 @@ void QtPointFPropertyManager::setDecimals(QtProperty *property, int prec)
 
     it.value() = data;
 
-    emit decimalsChanged(property, data.decimals);
+    Q_EMIT decimalsChanged(property, data.decimals);
 }
 
 /*!
@@ -3815,7 +3815,7 @@ void QtSizeFPropertyManager::setDecimals(QtProperty *property, int prec)
 
     it.value() = data;
 
-    emit decimalsChanged(property, data.decimals);
+    Q_EMIT decimalsChanged(property, data.decimals);
 }
 
 /*!
@@ -4202,8 +4202,8 @@ void QtRectPropertyManager::setValue(QtProperty *property, const QRect &val)
     d_ptr->m_intPropertyManager->setValue(d_ptr->m_propertyToW[property], newRect.width());
     d_ptr->m_intPropertyManager->setValue(d_ptr->m_propertyToH[property], newRect.height());
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 /*!
@@ -4254,15 +4254,15 @@ void QtRectPropertyManager::setConstraint(QtProperty *property, const QRect &con
 
     it.value() = data;
 
-    emit constraintChanged(property, data.constraint);
+    Q_EMIT constraintChanged(property, data.constraint);
 
     d_ptr->setConstraint(property, data.constraint, data.val);
 
     if (data.val == oldVal)
         return;
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 /*!
@@ -4632,8 +4632,8 @@ void QtRectFPropertyManager::setValue(QtProperty *property, const QRectF &val)
     d_ptr->m_doublePropertyManager->setValue(d_ptr->m_propertyToW[property], newRect.width());
     d_ptr->m_doublePropertyManager->setValue(d_ptr->m_propertyToH[property], newRect.height());
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 /*!
@@ -4684,15 +4684,15 @@ void QtRectFPropertyManager::setConstraint(QtProperty *property, const QRectF &c
 
     it.value() = data;
 
-    emit constraintChanged(property, data.constraint);
+    Q_EMIT constraintChanged(property, data.constraint);
 
     d_ptr->setConstraint(property, data.constraint, data.val);
 
     if (data.val == oldVal)
         return;
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 /*!
@@ -4728,7 +4728,7 @@ void QtRectFPropertyManager::setDecimals(QtProperty *property, int prec)
 
     it.value() = data;
 
-    emit decimalsChanged(property, data.decimals);
+    Q_EMIT decimalsChanged(property, data.decimals);
 }
 
 /*!
@@ -5001,8 +5001,8 @@ void QtEnumPropertyManager::setValue(QtProperty *property, int val)
 
     it.value() = data;
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 /*!
@@ -5035,10 +5035,10 @@ void QtEnumPropertyManager::setEnumNames(QtProperty *property, const QStringList
 
     it.value() = data;
 
-    emit enumNamesChanged(property, data.enumNames);
+    Q_EMIT enumNamesChanged(property, data.enumNames);
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 /*!
@@ -5057,9 +5057,9 @@ void QtEnumPropertyManager::setEnumIcons(QtProperty *property, const QMap<int, Q
 
     it.value().enumIcons = enumIcons;
 
-    emit enumIconsChanged(property, it.value().enumIcons);
+    Q_EMIT enumIconsChanged(property, it.value().enumIcons);
 
-    emit propertyChanged(property);
+    Q_EMIT propertyChanged(property);
 }
 
 /*!
@@ -5324,8 +5324,8 @@ void QtFlagPropertyManager::setValue(QtProperty *property, int val)
         level++;
     }
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 /*!
@@ -5371,10 +5371,10 @@ void QtFlagPropertyManager::setFlagNames(QtProperty *property, const QStringList
         d_ptr->m_flagToProperty[prop] = property;
     }
 
-    emit flagNamesChanged(property, data.flagNames);
+    Q_EMIT flagNamesChanged(property, data.flagNames);
 
-    emit propertyChanged(property);
-    emit valueChanged(property, data.val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, data.val);
 }
 
 /*!
@@ -5638,8 +5638,8 @@ void QtSizePolicyPropertyManager::setValue(QtProperty *property, const QSizePoli
     d_ptr->m_intPropertyManager->setValue(d_ptr->m_propertyToVStretch[property],
                 val.verticalStretch());
 
-    emit propertyChanged(property);
-    emit valueChanged(property, val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, val);
 }
 
 /*!
@@ -6079,8 +6079,8 @@ void QtFontPropertyManager::setValue(QtProperty *property, const QFont &val)
     d_ptr->m_boolPropertyManager->setValue(d_ptr->m_propertyToKerning[property], val.kerning());
     d_ptr->m_settingValue = settingValue;
 
-    emit propertyChanged(property);
-    emit valueChanged(property, val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, val);
 }
 
 /*!
@@ -6405,8 +6405,8 @@ void QtColorPropertyManager::setValue(QtProperty *property, const QColor &val)
     d_ptr->m_intPropertyManager->setValue(d_ptr->m_propertyToB[property], val.blue());
     d_ptr->m_intPropertyManager->setValue(d_ptr->m_propertyToA[property], val.alpha());
 
-    emit propertyChanged(property);
-    emit valueChanged(property, val);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, val);
 }
 
 /*!
@@ -6617,8 +6617,8 @@ void QtCursorPropertyManager::setValue(QtProperty *property, const QCursor &valu
 
     it.value() = value;
 
-    emit propertyChanged(property);
-    emit valueChanged(property, value);
+    Q_EMIT propertyChanged(property);
+    Q_EMIT valueChanged(property, value);
 #endif
 }
 
