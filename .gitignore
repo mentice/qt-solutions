@@ -1,0 +1,6 @@
+﻿qtpropertybrowser/.vs
+*.vcxproj*
+debug/
+release/
+*.sln
+qtpropertybrowser/.qmake.stash
